@@ -13,6 +13,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
     use /*Notifiable, */
         MustVerifyEmailTrait;
     use Notifiable {
+        //将Notifiable类中的notify方法重命名为laravelNotify
         notify as protected laravelNotify;
     }
 
