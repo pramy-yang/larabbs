@@ -10,18 +10,17 @@ use App\Models\User;
 
 return [
     // 页面标题
-    'title'   => '用户123',
+    'title' => '用户123',
 
     // 模型单数，用作页面『新建 $single』
-    'single'  => '用户456',
+    'single' => '用户456',
 
     // 数据模型，用作数据的 CRUD
-    'model'   => User::class,
+    'model' => User::class,
 
     // 设置当前页面的访问权限，通过返回布尔值来控制权限。
     // 返回 True 即通过权限验证，False 则无权访问并从 Menu 中隐藏
-    'permission'=> function()
-    {
+    'permission' => function () {
         return Auth::user()->can('manage_users');
     },
 
@@ -34,11 +33,11 @@ return [
 
         'avatar' => [
             // 数据表格里列的名称，默认会使用『列标识』
-            'title'  => '头像',
+            'title' => '头像',
 
             // 默认情况下会直接输出数据，你也可以使用 output 选项来定制输出内容
             'output' => function ($avatar, $model) {
-                return empty($avatar) ? 'N/A' : '<img src="'.$avatar.'" width="40">';
+                return empty($avatar) ? 'N/A' : '<img src="' . $avatar . '" width="40">';
             },
 
             // 是否允许排序
@@ -46,10 +45,10 @@ return [
         ],
 
         'name' => [
-            'title'    => '用户名',
+            'title' => '用户名',
             'sortable' => false,
             'output' => function ($name, $model) {
-                return '<a href="/users/'.$model->id.'" target=_blank>'.$name.'</a>';
+                return '<a href="/users/' . $model->id . '" target=_blank>' . $name . '</a>';
             },
         ],
 
@@ -58,7 +57,7 @@ return [
         ],
 
         'operation' => [
-            'title'  => '管理',
+            'title' => '管理',
             'sortable' => false,
         ],
     ],
@@ -87,10 +86,10 @@ return [
             'location' => public_path() . '/uploads/images/avatars/',
         ],
         'roles' => [
-            'title'      => '用户角色',
+            'title' => '用户角色',
 
             // 指定数据的类型为关联模型
-            'type'       => 'relationship',
+            'type' => 'relationship',
 
             // 关联模型的字段，用来做关联显示
             'name_field' => 'name',
