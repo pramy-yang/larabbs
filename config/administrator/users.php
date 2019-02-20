@@ -10,10 +10,10 @@ use App\Models\User;
 
 return [
     // 页面标题
-    'title'   => '用户',
+    'title'   => '用户123',
 
     // 模型单数，用作页面『新建 $single』
-    'single'  => '用户',
+    'single'  => '用户456',
 
     // 数据模型，用作数据的 CRUD
     'model'   => User::class,
