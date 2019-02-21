@@ -10,6 +10,7 @@ use App\Http\Requests\TopicRequest;
 use App\Models\Category;
 use Auth;
 use App\Models\User;
+use App\Models\Link;
 
 class TopicsController extends Controller
 {
@@ -18,11 +19,16 @@ class TopicsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-    public function index(Request $request, Topic $topic, User $user)
+    public function index(Request $request, Topic $topic, User $user, Link $link)
     {
-        $active_users = $user->getActiveUsers();
+
         $topics = $topic->withOrder($request->order)->paginate(30);
-        return view('topics.index', compact('topics', 'active_users'));
+
+        $active_users = $user->getActiveUsers();
+
+        $links = $link->getAllCached();
+
+        return view('topics.index', compact('topics', 'active_users','links'));
     }
 
     public function show(Request $request, Topic $topic)
