@@ -20,7 +20,8 @@ use Illuminate\Http\Request;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
-    'namespace' => 'App\Http\Controllers\Api'
+    'namespace' => 'App\Http\Controllers\Api',
+    'middleware' => 'serializer:array'//去除单一数据返回的那层data包裹
 ], function ($api) {
     $api->group([
         'middleware' => 'api.throttle',
@@ -35,7 +36,7 @@ $api->version('v1', [
         $api->post('users', 'UsersController@store')->name('api.users.store');
 
         //图形验证码
-        $api->post('captchas','CaptchasController@store')->name('api.captchas.store');
+        $api->post('captchas', 'CaptchasController@store')->name('api.captchas.store');
 
         // 第三方登录
         $api->post('socials/{social_type}/authorizations', 'AuthorizationsController@socialStore')
@@ -52,6 +53,14 @@ $api->version('v1', [
         // 删除token
         $api->delete('authorizations/current', 'AuthorizationsController@destroy')
             ->name('api.authorizations.destroy');
+
+        //需要token验证的接口
+
+        $api->group(['middleware' => 'api.auth'], function ($api) {
+            // 当前登录用户信息
+            $api->get('user', 'UsersController@me')
+                ->name('api.user.show');
+        });
 
     });
 });
