@@ -21,7 +21,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
-    'middleware' => 'serializer:array'//去除单一数据返回的那层data包裹
+    'middleware' =>[ 'serializer:array'/*去除单一数据返回的那层data包裹*/,'bindings']
 ], function ($api) {
     $api->group([
         'middleware' => 'api.throttle',
@@ -76,6 +76,9 @@ $api->version('v1', [
 
             //发布话题
             $api->post('topics','TopicsController@store')->name('api.topics.store');
+
+            //修改话题
+            $api->patch('topics/{topic}','TopicsController@update')->name('api.topics.update');
         });
 
     });
