@@ -21,7 +21,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
-    'middleware' =>[ 'serializer:array'/*去除单一数据返回的那层data包裹*/,'bindings']
+    'middleware' => ['serializer:array'/*去除单一数据返回的那层data包裹*/, 'bindings']
 ], function ($api) {
     $api->group([
         'middleware' => 'api.throttle',
@@ -63,7 +63,7 @@ $api->version('v1', [
             ->name('api.topics.index');
 
         //话题详情
-        $api->get('topics/{topic}','TopicsController@show')->name('api.topics.show');
+        $api->get('topics/{topic}', 'TopicsController@show')->name('api.topics.show');
 
         //个人话题列表
         $api->get('users/{user}/topics', 'TopicsController@userIndex')
@@ -86,17 +86,21 @@ $api->version('v1', [
                 ->name('api.images.store');
 
             //发布话题
-            $api->post('topics','TopicsController@store')->name('api.topics.store');
+            $api->post('topics', 'TopicsController@store')->name('api.topics.store');
 
             //修改话题
-            $api->patch('topics/{topic}','TopicsController@update')->name('api.topics.update');
+            $api->patch('topics/{topic}', 'TopicsController@update')->name('api.topics.update');
 
             //删除话题
             $api->delete('topics/{topic}', 'TopicsController@destroy')
                 ->name('api.topics.destroy');
 
             //发布回复
-            $api->post('topics/{topic}/replies','RepliesController@store')->name('api.topics.replies.store');
+            $api->post('topics/{topic}/replies', 'RepliesController@store')->name('api.topics.replies.store');
+
+            //删除回复
+            $api->delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')
+                ->name('api.topics.replies.destroy');
         });
 
     });

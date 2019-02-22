@@ -44,7 +44,7 @@ class GenerateToken extends Command
         if (!$user) {
             return $this->error('用户不存在');
         }
-        $ttl = 3600;
+        $ttl = 86400;
         $this->info(\Auth::guard('api')->setTTL($ttl)->fromUser($user));
     }
 }
