@@ -58,6 +58,14 @@ $api->version('v1', [
         $api->get('categories', 'CategoriesController@index')
             ->name('api.categories.index');
 
+        //话题列表
+        $api->get('topics', 'TopicsController@index')
+            ->name('api.topics.index');
+
+        //个人话题列表
+        $api->get('users/{user}/topics', 'TopicsController@userIndex')
+            ->name('api.users.topics.index');
+
 
         //需要token验证的接口
 
@@ -80,6 +88,7 @@ $api->version('v1', [
             //修改话题
             $api->patch('topics/{topic}','TopicsController@update')->name('api.topics.update');
 
+            //删除话题
             $api->delete('topics/{topic}', 'TopicsController@destroy')
                 ->name('api.topics.destroy');
         });
