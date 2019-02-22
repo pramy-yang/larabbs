@@ -21,7 +21,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
-    'middleware' => ['serializer:array'/*去除单一数据返回的那层data包裹*/, 'bindings']
+    'middleware' => ['serializer:array'/*去除单一数据返回的那层data包裹*/, 'bindings','change-locale']
 ], function ($api) {
     $api->group([
         'middleware' => 'api.throttle',
