@@ -28,4 +28,9 @@ class AuthorizationRequest extends FormRequest
             'password' => 'required|string|min:6',
         ];
     }
+
+    public function attributes()
+    {
+        return ['usernane' => '账号', 'password' => '密码'];
+    }
 }
